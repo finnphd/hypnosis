@@ -39,6 +39,8 @@ let rippleCircle = $('#ripple-circle circle');
 
 
 function playMusic() {
+    $('#player').css('transform','scale(2)');
+
     audioMp3.play();
     hoverCircle = $(this).find('#hover-circle .st4')
     $(hoverCircle).css({'fill': '#7691BA'});
@@ -59,6 +61,7 @@ function playMusic() {
 }
 
 function stopMusic() {
+    $('#player').css('transform','scale(1)');
     audioMp3.pause();
     $(hoverCircle).css({'fill': '#486CA3'});
     TweenMax.to('.play-text', 0.35, {autoAlpha: 0, y: 0, transformOrigin: '50% 50%', ease: Back.easeIn});
@@ -85,31 +88,33 @@ $('#playMusic').mousedown(function () {
 
 
 // =================================
-let mouseY = 0;
-let startMouseY = 0;
-let body =$('body');
-body.on('mousedown', function (ev) {
-    mouseY = ev.pageY;
-    startMouseY = mouseY;
-    $(document).mousemove(function (e) {
-        if (e.pageY > mouseY) {
-            var d = e.pageY - startMouseY;
-            console.log("d: " + d);
-            if (d >= 200)
-                location.reload();
-            $('body').css('margin-top', d / 4 + 'px');
-        } else
-            $(document).unbind("mousemove");
+///if you want to pull refresh then uncomment below code.
 
-
-    });
-});
-body.on('mouseup', function () {
-    $('body').css('margin-top', '0px');
-    $(document).unbind("mousemove");
-});
-body.on('mouseleave', function () {
-    $('body').css('margin-top', '0px');
-    $(document).unbind("mousemove");
-});
+// let mouseY = 0;
+// let startMouseY = 0;
+// let body =$('body');
+// body.on('mousedown', function (ev) {
+//     mouseY = ev.pageY;
+//     startMouseY = mouseY;
+//     $(document).mousemove(function (e) {
+//         if (e.pageY > mouseY) {
+//             var d = e.pageY - startMouseY;
+//             console.log("d: " + d);
+//             if (d >= 200)
+//                 location.reload();
+//             $('body').css('margin-top', d / 4 + 'px');
+//         } else
+//             $(document).unbind("mousemove");
+//
+//
+//     });
+// });
+// body.on('mouseup', function () {
+//     $('body').css('margin-top', '0px');
+//     $(document).unbind("mousemove");
+// });
+// body.on('mouseleave', function () {
+//     $('body').css('margin-top', '0px');
+//     $(document).unbind("mousemove");
+// });
 
