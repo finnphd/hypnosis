@@ -39,47 +39,54 @@ let rippleCircle = $('#ripple-circle circle');
 
 
 function playMusic() {
-    $('#player').css('transform','scale(2)');
+    let player = $('#player');
+    let isShow = player.is(":visible");
+    if (isShow) {
+        player.css('transform', 'scale(1.5)'); //you can change scale for zoom
 
-    audioMp3.play();
-    hoverCircle = $(this).find('#hover-circle .st4')
-    $(hoverCircle).css({'fill': '#7691BA'});
-    TweenMax.to('.play-text', 0.35, {autoAlpha: 1, y: -70, transformOrigin: '50% 50%', ease: Back.easeOut});
+        audioMp3.play();
+        hoverCircle = player.find('#hover-circle .st4')
+        $(hoverCircle).css({'fill': '#7691BA'});
+        TweenMax.to('.play-text', 0.35, {autoAlpha: 1, y: -70, transformOrigin: '50% 50%', ease: Back.easeOut});
 
 
-    TweenMax.set(spinDisc, {rotation: 0, transformOrigin: '50% 50%'});
-    TweenMax.to(spinDisc, 2, {rotation: 360, transformOrigin: '50% 50%', repeat: -1, ease: Linear.easeNone});
-    TweenMax.staggerTo(rippleCircle, 2.1, {
-        scale: 20,
-        transformOrigin: '50% 50%',
-        autoAlpha: 0,
-        repeat: -1,
-        ease: Linear.easeNone
-    }, 0.7);
-    TweenMax.set('.play-text', {autoAlpha: 0, y: 0, transformOrigin: '50% 50%'});
-
+        TweenMax.set(spinDisc, {rotation: 0, transformOrigin: '50% 50%'});
+        TweenMax.to(spinDisc, 2, {rotation: 360, transformOrigin: '50% 50%', repeat: -1, ease: Linear.easeNone});
+        TweenMax.staggerTo(rippleCircle, 2.1, {
+            scale: 20,
+            transformOrigin: '50% 50%',
+            autoAlpha: 0,
+            repeat: -1,
+            ease: Linear.easeNone
+        }, 0.7);
+        TweenMax.set('.play-text', {autoAlpha: 0, y: 0, transformOrigin: '50% 50%'});
+    }
 }
 
 function stopMusic() {
-    $('#player').css('transform','scale(1)');
-    audioMp3.pause();
-    $(hoverCircle).css({'fill': '#486CA3'});
-    TweenMax.to('.play-text', 0.35, {autoAlpha: 0, y: 0, transformOrigin: '50% 50%', ease: Back.easeIn});
+    let player = $('#player');
+    let isShow = player.is(":visible");
+    if (isShow) {
+        player.css('transform', 'scale(1)');
+        audioMp3.pause();
+        $(hoverCircle).css({'fill': '#486CA3'});
+        TweenMax.to('.play-text', 0.35, {autoAlpha: 0, y: 0, transformOrigin: '50% 50%', ease: Back.easeIn});
 
-    TweenMax.killTweensOf(spinDisc);
-    TweenMax.killTweensOf(rippleCircle);
+        TweenMax.killTweensOf(spinDisc);
+        TweenMax.killTweensOf(rippleCircle);
+    }
 }
 
 
-$('#playMusic').on("touchstart", function (event) {
+$('body').on("touchstart", function (event) {
     playMusic();
 });
-$('#playMusic').on("touchend", function (event) {
+$('body').on("touchend", function (event) {
     stopMusic();
 });
 
 
-$('#playMusic').mousedown(function () {
+$('body').mousedown(function () {
     playMusic();
 
 }).mouseup(function () {
